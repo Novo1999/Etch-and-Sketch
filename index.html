@@ -11,7 +11,31 @@
     <header>
       <h1>Etch a Sketch</h1>
     </header>
+    <div class="menu-bar">
+      <h2>Menu</h2>
+      <h4>Color Mode</h4>
+      <div class="color-mode">
+        <button>Black</button>
+        <button>Polychromatic</button>
+      </div>
+      <div class="clear">
+        <button>Eraser</button>
+        <button>Clear</button>
+      </div>
+      <div class="input">
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="16"
+          name="grid-slider"
+          class="slider"
+          id="range"
+        />
+      </div>
+    </div>
     <div class="container"></div>
+
     <script src="script.js"></script>
   </body>
 </html>

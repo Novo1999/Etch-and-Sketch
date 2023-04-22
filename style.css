@@ -9,7 +9,7 @@ html {
   margin: 0;
   padding: 0;
   background-image: linear-gradient(to left, #19376d, #9e4784);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .container {
@@ -18,12 +18,11 @@ html {
   grid-template-columns: repeat(var(--grid-col), 1fr);
   width: 640px;
   height: 640px;
-  border: 1px solid #333;
   margin: 9.5rem auto;
   background-color: white;
   box-shadow: 1px 1px 20px 1px;
   position: relative;
-  top: -50px;
+  top: -600px;
 }
 header {
   text-align: center;
@@ -37,4 +36,48 @@ header {
   max-height: 100rem;
   border: 1px solid #333;
   text-align: center;
+}
+.menu-bar {
+  border: 1px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  position: relative;
+  left: 15rem;
+  top: 7rem;
+  width: 18rem;
+  height: 30rem;
+}
+.menu-bar h2,
+h4 {
+  text-align: center;
+}
+button {
+  width: 200px;
+  border-radius: 20px;
+  height: 40px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: wheat;
+  color: black;
+}
+button:hover {
+  transition: 0.5s all;
+  transform: scale(1.1);
+}
+.color-mode,
+.clear {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 2.2rem;
+}
+.input {
+  padding-left: 2.5rem;
+}
+input {
+  margin-top: 35px;
+  width: 13rem;
+  cursor: pointer;
 }
