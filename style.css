@@ -1,0 +1,40 @@
+:root {
+  --grid-col: 1;
+  --grid-row: 1;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to left, #19376d, #9e4784);
+  overflow: hidden;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: repeat(var(--grid-row), 1fr);
+  grid-template-columns: repeat(var(--grid-col), 1fr);
+  width: 640px;
+  height: 640px;
+  border: 1px solid #333;
+  margin: 9.5rem auto;
+  background-color: white;
+  box-shadow: 1px 1px 20px 1px;
+  position: relative;
+  top: -50px;
+}
+header {
+  text-align: center;
+  font-size: 1.5rem;
+  position: relative;
+  top: 40px;
+  color: #c950a5b2;
+}
+.grid-item {
+  max-width: 100rem;
+  max-height: 100rem;
+  border: 1px solid #333;
+  text-align: center;
+}
