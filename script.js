@@ -31,8 +31,7 @@ function gridCount(count) {
     e.textContent = count;
   });
 }
-let rows = 0;
-let cols = 0;
+
 // Creating the grid
 function makeRows(rows, cols) {
   etchPad.style.setProperty('--grid-row', rows);
@@ -45,7 +44,7 @@ function makeRows(rows, cols) {
 makeRows(16, 16);
 
 // Create new grid
-input.addEventListener('click', (rows, cols) => {
+function createGrid(rows, cols) {
   clearPad();
   let inputInt = parseInt(input.value);
   // console.log(inputInt);
@@ -56,12 +55,19 @@ input.addEventListener('click', (rows, cols) => {
     }
     makeRows(rows, cols);
     gridItems = document.querySelectorAll('#grid-item');
-    // Calling black again after nodelist updates
-    blackMode();
+    // Calling default mode after grid size changes
+    defaultMode();
+    eraser.classList.remove('changeBG');
+    chroma.classList.remove('changeBG');
+    reset.classList.remove('changeBG');
     // console.log(nodes.childNodes);
     gridCount(rows);
     break;
   }
+}
+
+input.addEventListener('click', () => {
+  createGrid();
 });
 
 // Selecting all child nodes
@@ -71,44 +77,50 @@ let gridItems = document.querySelectorAll('#grid-item');
 // console.log(nodes.childNodes);
 
 // Black Color Mode
-function blackMode() {
-  black.addEventListener('click', function () {
-    gridItems.forEach(function (item) {
-      item.addEventListener('mousemove', function change(event) {
-        if (event.buttons === 1 && !checkdivColor(item)) {
-          console.log(event.target);
-          item.style.backgroundColor = 'black';
-        }
-      });
-    });
-  });
-}
-blackMode();
+
+// function blackMode() {
+//   gridItems.forEach(function (item) {
+//     item.addEventListener('mousedown', function change(event) {
+//       if (event.buttons === 1 && !checkdivColor(item)) {
+//         item.style.backgroundColor = 'black';
+//       }
+//     });
+//   });
+// }
 
 function checkdivColor(e) {
-  console.log(e.style.backgroundColor === 'black');
   return e.style.backgroundColor === 'black';
 }
-
+function checkdivColor2(e) {
+  return e.style.backgroundColor === 'white';
+}
 // Eraser
-function eraserMode() {
-  eraser.addEventListener('click', function () {
-    gridItems.forEach(function (item) {
-      item.addEventListener('mousemove', function change() {
+
+function Mode() {
+  gridItems.forEach(function (item) {
+    item.addEventListener('mousemove', function change(event) {
+      if (event.buttons === 1 && !checkdivColor2(item)) {
         item.style.backgroundColor = 'white';
-      });
+      } else if (event.buttons === 1 && !checkdivColor(item)) {
+        item.style.backgroundColor = 'black';
+      }
     });
   });
 }
-eraserMode();
-
+// Reset
+function resetPad() {
+  gridCount(16);
+  clearPad();
+  makeRows(16, 16);
+  defaultMode();
+}
 //Button Indicator
 
 indicate.forEach(function (btn) {
   btn.addEventListener('click', function (e) {
     const styles = e.currentTarget.classList;
-    console.log(styles);
     if (styles.contains('black')) {
+      Mode();
       styles.add('changeBG');
       eraser.classList.remove('changeBG');
       chroma.classList.remove('changeBG');
@@ -119,18 +131,31 @@ indicate.forEach(function (btn) {
       black.classList.remove('changeBG');
       reset.classList.remove('changeBG');
     } else if (styles.contains('erase')) {
+      Mode();
       styles.add('changeBG');
       black.classList.remove('changeBG');
       chroma.classList.remove('changeBG');
       reset.classList.remove('changeBG');
     } else {
-      styles.add('changeBG');
-      black.classList.remove('changeBG');
+      resetPad();
       chroma.classList.remove('changeBG');
       eraser.classList.remove('changeBG');
     }
   });
 });
+
+// Making the Default mode to black
+function defaultMode() {
+  gridItems.forEach(function (item) {
+    item.addEventListener('mousemove', function change(event) {
+      if (event.buttons === 1 && !checkdivColor(item)) {
+        item.style.backgroundColor = 'black';
+      }
+    });
+    black.classList.add('changeBG');
+  });
+}
+defaultMode();
 
 // Side Menu
 // Slider for the grids
