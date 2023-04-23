@@ -7,7 +7,7 @@
     <title>Etch a Sketch</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body draggable="false">
     <header>
       <h1>Etch a Sketch</h1>
     </header>
@@ -15,12 +15,12 @@
       <h2>Menu</h2>
       <h4>Color Mode</h4>
       <div class="color-mode">
-        <button>Black</button>
-        <button>Polychromatic</button>
+        <button class="black btn">⚫ Black</button>
+        <button class="chroma btn">🌈 Polychromatic</button>
       </div>
       <div class="clear">
-        <button>Eraser</button>
-        <button>Clear</button>
+        <button class="erase btn">🧽 Eraser</button>
+        <button class="reset btn">🔄 Reset</button>
       </div>
       <h3>
         <span class="gridCounter"></span> X

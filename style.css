@@ -24,16 +24,7 @@ html {
   position: relative;
   top: -600px;
 }
-.container-2 {
-  display: grid;
-  width: 640px;
-  height: 640px;
-  margin: 9.5rem auto;
-  background-color: white;
-  box-shadow: 1px 1px 20px 1px;
-  position: relative;
-  top: -600px;
-}
+
 header {
   text-align: center;
   font-size: 1.5rem;
@@ -44,7 +35,7 @@ header {
 #grid-item {
   max-width: 100rem;
   max-height: 100rem;
-  border: 1px solid #333;
+  border: 1px solid #33333341;
   text-align: center;
 }
 .menu-bar {
@@ -52,12 +43,12 @@ header {
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   position: relative;
   left: 15rem;
   top: 7rem;
   width: 18rem;
   height: 30rem;
+  box-shadow: 4px 4px 10px 1px;
 }
 .menu-bar h2,
 h4,
@@ -70,8 +61,8 @@ button {
   height: 40px;
   margin: 10px;
   cursor: pointer;
-  background-color: wheat;
-  color: black;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgb(255, 255, 255);
 }
 button:hover {
   transition: 0.5s all;
@@ -91,4 +82,7 @@ input {
   /* margin-top: 35px; */
   width: 13rem;
   cursor: pointer;
+}
+.changeBG {
+  box-shadow: 1px 1px 15px 7px rgba(223, 12, 212, 0.582);
 }
