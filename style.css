@@ -129,3 +129,36 @@ canvas {
   width: 40px;
   height: 137px;
 }
+@media screen and (min-width: 720px) and (max-width: 1080px) {
+  .container {
+    width: 220px;
+    height: 220px;
+    position: relative;
+    right: 120px;
+    top: -52rem;
+  }
+  header {
+    font-size: 1rem;
+    right: 120px;
+    top: -22px;
+  }
+  .menu-bar {
+    width: 15rem;
+    height: 40rem;
+    top: 13rem;
+    left: 110px;
+  }
+  button {
+    width: 150px;
+  }
+  canvas {
+    height: 100px;
+  }
+  #color-slider {
+    display: none;
+  }
+  input {
+    width: 10rem;
+    cursor: pointer;
+  }
+}
