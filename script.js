@@ -16,6 +16,8 @@ const chroma = document.querySelector('.chroma');
 const reset = document.querySelector('.reset');
 // Selecting marker
 const marker = document.querySelector('.marker');
+// Selecting color slider
+const slider = document.getElementById('color-slider');
 
 // Clears the pad
 function clearPad() {
@@ -90,11 +92,24 @@ function checkdivColor2(e) {
 
 function Mode(color) {
   gridItems.forEach(function (item) {
-    item.addEventListener('mousemove', function change(event) {
+    item.addEventListener('mousemove', function (event) {
       if (event.buttons === 1 && !checkdivColor2(item)) {
         item.style.backgroundColor = color;
       } else if (event.buttons === 1 && !checkdivColor(item)) {
         item.style.backgroundColor = color;
+      }
+    });
+  });
+}
+
+let colors = ['red', 'green', 'indigo', 'blue', 'orange', 'violet', 'yellow'];
+function Polychromatic() {
+  let currentColorIndex = 0;
+  gridItems.forEach(function (e) {
+    e.addEventListener('mousemove', function (event) {
+      if (event.buttons === 1) {
+        e.style.backgroundColor = colors[currentColorIndex];
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
       }
     });
   });
@@ -112,6 +127,7 @@ indicate.forEach(function (btn) {
       chroma.classList.remove('changeBG');
       reset.classList.remove('changeBG');
     } else if (styles.contains('chroma')) {
+      Polychromatic();
       styles.add('changeBG');
       eraser.classList.remove('changeBG');
       black.classList.remove('changeBG');
@@ -152,11 +168,13 @@ function resetPad() {
 }
 
 // Color Picker
+const colorCtx2 = slider.getContext('2d');
 const colorCanvas = document.getElementById('color-canvas');
 const colorCtx = colorCanvas.getContext('2d');
 let gradientV = colorCtx.createLinearGradient(0, 0, 0, 300);
 let gradientH = colorCtx.createLinearGradient(0, 0, colorCtx.canvas.width, 0);
-let color = '#D21312';
+let color = 'blue';
+
 function colorPicker() {
   // Vertical Gradient
   gradientV.addColorStop(0, 'rgba(0,0,0,0');
@@ -188,12 +206,6 @@ function colorMode(e) {
     item.addEventListener('mousemove', e => {
       e.preventDefault();
       if (e.buttons === 1) {
-        let itemRect = item.getBoundingClientRect();
-        let offsetX = e.clientX - itemRect.left;
-        let offsetY = e.clientY - itemRect.top;
-        console.log(offsetX);
-        marker.style.left = `${offsetX}px`;
-        marker.style.top = `${offsetY}px`;
         item.style.backgroundColor = rgb;
       }
     });
@@ -206,6 +218,22 @@ colorCanvas.addEventListener('mousemove', function (e) {
     colorMode(e);
   }
 });
+
+// function markerMove() {
+//   gridItems.forEach(function (item) {
+//     item.addEventListener('mousemove', e => {
+//       // e.preventDefault();
+//       let itemRect = item.getBoundingClientRect();
+//       if (e.buttons === 1) {
+//         let offsetX = e.clientX - itemRect.left;
+//         let offsetY = e.clientY - itemRect.top;
+//         console.log(offsetX);
+//         marker.style.left = `${offsetX}px`;
+//         marker.style.top = `${offsetY}px`;
+//       }
+//     });
+//   });
+// }
 
 // Side Menu
 // Slider for the grids

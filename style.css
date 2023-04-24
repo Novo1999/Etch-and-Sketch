@@ -97,6 +97,8 @@ input {
 
 .marker {
   position: absolute;
+  top: 0;
+  left: 0;
   z-index: 2;
   width: 5px;
   height: 5px;
@@ -108,4 +110,22 @@ canvas {
   margin-top: -10px;
   width: 180px;
   height: 140px;
+}
+#color-slider {
+  background-image: linear-gradient(
+    to bottom,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
+  border: 1px solid red;
+  position: relative;
+  right: 20px;
+  float: right;
+  width: 40px;
+  height: 137px;
 }
