@@ -7,7 +7,7 @@
     <title>Etch a Sketch</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body draggable="false">
+  <body>
     <header>
       <h1>Etch a Sketch</h1>
     </header>
@@ -15,6 +15,10 @@
       <h2>Menu</h2>
       <h4>Color Mode</h4>
       <div class="color-mode">
+        <div class="canvas-container">
+          <canvas id="color-canvas"></canvas>
+          <div class="marker"></div>
+        </div>
         <button class="black btn">⚫ Black</button>
         <button class="chroma btn">🌈 Polychromatic</button>
       </div>
