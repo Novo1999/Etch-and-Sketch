@@ -54,6 +54,7 @@ header {
 h4,
 h3 {
   text-align: center;
+  color: rgba(144, 226, 11, 0.856);
 }
 button {
   width: 200px;
@@ -78,21 +79,13 @@ button:hover {
 .input {
   padding-left: 2.5rem;
 }
-input {
+input[type='range'] {
   /* margin-top: 35px; */
   width: 13rem;
   cursor: pointer;
 }
 .changeBG {
   box-shadow: 1px 1px 15px 7px rgba(223, 12, 212, 0.582);
-}
-.canvas-container {
-  position: relative;
-}
-
-#color-canvas {
-  position: relative;
-  z-index: 1;
 }
 
 .marker {
@@ -105,29 +98,13 @@ input {
   background-color: transparent;
   border: 1px solid black;
 }
-
-canvas {
-  margin-top: -10px;
-  width: 180px;
-  height: 140px;
-}
-#color-slider {
-  background-image: linear-gradient(
-    to bottom,
-    red,
-    orange,
-    yellow,
-    green,
-    blue,
-    indigo,
-    violet
-  );
-  border: 1px solid red;
-  position: relative;
-  right: 20px;
-  float: right;
-  width: 40px;
-  height: 137px;
+input[type='color'] {
+  width: 5rem;
+  height: 4rem;
+  border: none;
+  margin-left: 70px;
+  background: none;
+  cursor: pointer;
 }
 @media screen and (min-width: 720px) and (max-width: 1080px) {
   .container {

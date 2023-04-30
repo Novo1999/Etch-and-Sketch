@@ -18,7 +18,8 @@ const reset = document.querySelector('.reset');
 const marker = document.querySelector('.marker');
 // Selecting color slider
 const slider = document.getElementById('color-slider');
-
+/// Selecting Color Picker
+const colorPicker = document.querySelector('#picker');
 // Clears the pad
 function clearPad() {
   while (etchPad.firstChild) {
@@ -63,7 +64,6 @@ function createGrid(rows, cols) {
     // Calling default mode after grid size changes
     gridItems = document.querySelectorAll('#grid-item');
     eraser.classList.remove('changeBG');
-    chroma.classList.remove('changeBG');
     reset.classList.remove('changeBG');
     // console.log(nodes.childNodes);
     gridCount(rows);
@@ -72,8 +72,16 @@ function createGrid(rows, cols) {
 }
 
 input.addEventListener('click', () => {
-  createGrid();
-  defaultMode();
+  if (black.classList.contains('changeBG')) {
+    createGrid();
+    Mode('black');
+  } else if (chroma.classList.contains('changeBG')) {
+    createGrid();
+    Polychromatic();
+  } else if (colorPicker.classList.contains('changeBG')) {
+    createGrid();
+    defaultMode();
+  }
 });
 
 // Selecting all child nodes
@@ -94,8 +102,10 @@ function Mode(color) {
   gridItems.forEach(function (item) {
     item.addEventListener('mousemove', function (event) {
       if (event.buttons === 1 && !checkdivColor2(item)) {
+        event.preventDefault();
         item.style.backgroundColor = color;
       } else if (event.buttons === 1 && !checkdivColor(item)) {
+        event.preventDefault();
         item.style.backgroundColor = color;
       }
     });
@@ -107,6 +117,7 @@ function Polychromatic() {
   let currentColorIndex = 0;
   gridItems.forEach(function (e) {
     e.addEventListener('mousemove', function (event) {
+      event.preventDefault();
       if (event.buttons === 1) {
         e.style.backgroundColor = colors[currentColorIndex];
         currentColorIndex = (currentColorIndex + 1) % colors.length;
@@ -126,22 +137,28 @@ indicate.forEach(function (btn) {
       eraser.classList.remove('changeBG');
       chroma.classList.remove('changeBG');
       reset.classList.remove('changeBG');
+      colorPicker.classList.remove('changeBG');
     } else if (styles.contains('chroma')) {
       Polychromatic();
       styles.add('changeBG');
       eraser.classList.remove('changeBG');
       black.classList.remove('changeBG');
       reset.classList.remove('changeBG');
+      colorPicker.classList.remove('changeBG');
     } else if (styles.contains('erase')) {
       Mode('white');
       styles.add('changeBG');
       black.classList.remove('changeBG');
       chroma.classList.remove('changeBG');
       reset.classList.remove('changeBG');
-    } else {
+      colorPicker.classList.remove('changeBG');
+    } else if (styles.contains('reset')) {
       resetPad();
       chroma.classList.remove('changeBG');
       eraser.classList.remove('changeBG');
+      colorPicker.classList.remove('changeBG');
+    } else {
+      update();
     }
   });
 });
@@ -156,6 +173,7 @@ function defaultMode() {
       }
     });
     black.classList.add('changeBG');
+    colorPicker.classList.remove('changeBG');
   });
 }
 defaultMode();
@@ -168,73 +186,33 @@ function resetPad() {
 }
 
 // Color Picker
-const colorCtx2 = slider.getContext('2d');
-const colorCanvas = document.getElementById('color-canvas');
-const colorCtx = colorCanvas.getContext('2d');
-let gradientV = colorCtx.createLinearGradient(0, 0, 0, 300);
-let gradientH = colorCtx.createLinearGradient(0, 0, colorCtx.canvas.width, 0);
-let color = 'blue';
+const defaultColor = '#E32E2E';
+window.addEventListener('load', startup, false);
 
-function colorPicker() {
-  // Vertical Gradient
-  gradientV.addColorStop(0, 'rgba(0,0,0,0');
-  gradientV.addColorStop(1, '#000');
-  colorCtx.fillStyle = gradientV;
-  // Draws to the canvas
-  colorCtx.fillRect(0, 15, colorCtx.canvas.width, colorCtx.canvas.height);
-  // Horizontal Gradient
-  gradientH.addColorStop(0, '#fff');
-  gradientH.addColorStop(1, color);
-  colorCtx.fillStyle = gradientH;
-  // Draws to the canvas
-  colorCtx.fillRect(0, 0, colorCtx.canvas.width, colorCtx.canvas.height);
+function startup() {
+  colorPicker.value = defaultColor;
+  colorPicker.addEventListener('input', updateFirst, false);
+  colorPicker.addEventListener('change', colorPick, false);
+  colorPicker.select();
 }
-colorPicker();
-// Selecting color from color picker
-
-function colorMode(e) {
-  let rect = colorCanvas.getBoundingClientRect();
-  let x = e.clientX - rect.left;
-  let y = e.clientY - rect.top;
-  // console.log(x);
-  let pixel = colorCtx.getImageData(x, y, 1, 1)['data'];
-  // console.log(pixel);
-  let rgb = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
-  // console.log(rgb);
-  gridItems = document.querySelectorAll('#grid-item');
-  gridItems.forEach(function (item) {
-    item.addEventListener('mousemove', e => {
-      e.preventDefault();
-      if (e.buttons === 1) {
-        item.style.backgroundColor = rgb;
+function updateFirst() {
+  if (colorPicker) {
+    colorPicker.classList.add('changeBG');
+    chroma.classList.remove('changeBG');
+    eraser.classList.remove('changeBG');
+    black.classList.remove('changeBG');
+  }
+}
+const colorPick = function update(e) {
+  gridItems.forEach(item => {
+    item.addEventListener('mousemove', function (event) {
+      if (event.buttons === 1 && !checkdivColor2(item)) {
+        event.preventDefault();
+        item.style.backgroundColor = e.target.value;
       }
     });
   });
-}
-
-colorCanvas.addEventListener('mousemove', function (e) {
-  if (e.buttons === 1) {
-    black.classList.remove('changeBG');
-    colorMode(e);
-  }
-});
-
-// function markerMove() {
-//   gridItems.forEach(function (item) {
-//     item.addEventListener('mousemove', e => {
-//       // e.preventDefault();
-//       let itemRect = item.getBoundingClientRect();
-//       if (e.buttons === 1) {
-//         let offsetX = e.clientX - itemRect.left;
-//         let offsetY = e.clientY - itemRect.top;
-//         console.log(offsetX);
-//         marker.style.left = `${offsetX}px`;
-//         marker.style.top = `${offsetY}px`;
-//       }
-//     });
-//   });
-// }
-
+};
 // Side Menu
 // Slider for the grids
 // Color Mode - Polychromatic
