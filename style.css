@@ -22,7 +22,7 @@ html {
   background-color: white;
   box-shadow: 1px 1px 20px 1px;
   position: relative;
-  bottom: 700px;
+  bottom: 750px;
 }
 
 header {
@@ -45,7 +45,7 @@ header {
   flex-direction: column;
   position: relative;
   left: 15rem;
-  top: 6rem;
+  top: 3rem;
   width: 18rem;
   height: 40rem;
   box-shadow: 4px 4px 10px 1px;
@@ -105,6 +105,11 @@ input[type='color'] {
   margin-left: 70px;
   background: none;
   cursor: pointer;
+}
+footer {
+  text-align: center;
+  position: relative;
+  bottom: 50rem;
 }
 @media screen and (min-width: 720px) and (max-width: 1080px) {
   .container {
