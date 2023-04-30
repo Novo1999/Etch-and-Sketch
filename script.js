@@ -18,8 +18,10 @@ const reset = document.querySelector('.reset');
 const marker = document.querySelector('.marker');
 // Selecting color slider
 const slider = document.getElementById('color-slider');
-/// Selecting Color Picker
+// Selecting Color Picker
 const colorPicker = document.querySelector('#picker');
+// Selecting Soft mode
+const softMode = document.querySelector('.soft-mode');
 // Clears the pad
 function clearPad() {
   while (etchPad.firstChild) {
@@ -111,7 +113,7 @@ function Mode(color) {
     });
   });
 }
-
+// Random Colors
 let colors = ['red', 'green', 'indigo', 'blue', 'orange', 'violet', 'yellow'];
 function Polychromatic() {
   let currentColorIndex = 0;
@@ -176,7 +178,7 @@ function defaultMode() {
     colorPicker.classList.remove('changeBG');
   });
 }
-defaultMode();
+// defaultMode();
 // Reset
 function resetPad() {
   clearPad();
@@ -203,16 +205,31 @@ function updateFirst() {
     black.classList.remove('changeBG');
   }
 }
-const colorPick = function update(e) {
+const colorPick = function (e) {
   gridItems.forEach(item => {
     item.addEventListener('mousemove', function (event) {
-      if (event.buttons === 1 && !checkdivColor2(item)) {
+      if (event.buttons === 1) {
         event.preventDefault();
         item.style.backgroundColor = e.target.value;
       }
     });
   });
 };
+
+// Soft Mode
+const softBlack = function () {
+  gridItems.forEach(item => {
+    item.addEventListener('mousemove', function (event) {
+      if (event.buttons === 1) {
+        event.preventDefault();
+        item.classList.add('softBlack');
+        item.setAttribute('style', 'opacity: 0.1');
+        item.style.opacity += parseFloat(item.style.opacity) + 0.2;
+      }
+    });
+  });
+};
+softBlack();
 // Side Menu
 // Slider for the grids
 // Color Mode - Polychromatic
