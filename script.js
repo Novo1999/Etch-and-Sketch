@@ -83,6 +83,12 @@ input.addEventListener('click', () => {
   } else if (colorPicker.classList.contains('changeBG')) {
     createGrid();
     defaultMode();
+  } else if (softMode.classList.contains('changeBG')) {
+    createGrid();
+    softBlack();
+  } else if (eraser.classList.contains('changeBG')) {
+    createGrid();
+    defaultMode();
   }
 });
 
@@ -104,6 +110,7 @@ function Mode(color) {
   gridItems.forEach(function (item) {
     item.addEventListener('mousemove', function (event) {
       if (event.buttons === 1 && !checkdivColor2(item)) {
+        item.removeAttribute('style', 'opacity: 0.1');
         event.preventDefault();
         item.style.backgroundColor = color;
       } else if (event.buttons === 1 && !checkdivColor(item)) {
@@ -121,6 +128,7 @@ function Polychromatic() {
     e.addEventListener('mousemove', function (event) {
       event.preventDefault();
       if (event.buttons === 1) {
+        e.removeAttribute('style', 'opacity: 0.1');
         e.style.backgroundColor = colors[currentColorIndex];
         currentColorIndex = (currentColorIndex + 1) % colors.length;
       }
@@ -140,6 +148,7 @@ indicate.forEach(function (btn) {
       chroma.classList.remove('changeBG');
       reset.classList.remove('changeBG');
       colorPicker.classList.remove('changeBG');
+      softMode.classList.remove('changeBG');
     } else if (styles.contains('chroma')) {
       Polychromatic();
       styles.add('changeBG');
@@ -147,6 +156,7 @@ indicate.forEach(function (btn) {
       black.classList.remove('changeBG');
       reset.classList.remove('changeBG');
       colorPicker.classList.remove('changeBG');
+      softMode.classList.remove('changeBG');
     } else if (styles.contains('erase')) {
       Mode('white');
       styles.add('changeBG');
@@ -154,11 +164,21 @@ indicate.forEach(function (btn) {
       chroma.classList.remove('changeBG');
       reset.classList.remove('changeBG');
       colorPicker.classList.remove('changeBG');
+      softMode.classList.remove('changeBG');
     } else if (styles.contains('reset')) {
       resetPad();
       chroma.classList.remove('changeBG');
       eraser.classList.remove('changeBG');
       colorPicker.classList.remove('changeBG');
+      softMode.classList.remove('changeBG');
+    } else if (styles.contains('soft-mode')) {
+      softBlack();
+      eraser.classList.remove('changeBG');
+      chroma.classList.remove('changeBG');
+      reset.classList.remove('changeBG');
+      colorPicker.classList.remove('changeBG');
+      softMode.classList.add('changeBG');
+      black.classList.remove('changeBG');
     } else {
       update();
     }
@@ -178,7 +198,7 @@ function defaultMode() {
     colorPicker.classList.remove('changeBG');
   });
 }
-// defaultMode();
+defaultMode();
 // Reset
 function resetPad() {
   clearPad();
@@ -222,14 +242,21 @@ const softBlack = function () {
     item.addEventListener('mousemove', function (event) {
       if (event.buttons === 1) {
         event.preventDefault();
-        item.classList.add('softBlack');
         item.setAttribute('style', 'opacity: 0.1');
-        item.style.opacity += parseFloat(item.style.opacity) + 0.2;
+        item.style.backgroundColor = 'black';
+      }
+      for (let i = 0; i <= 2; i++) {
+        item.addEventListener('mousemove', function (event) {
+          if (event.buttons === 1) {
+            event.preventDefault();
+            item.style.opacity = parseFloat(item.style.opacity) + 0.001;
+          }
+        });
       }
     });
   });
 };
-softBlack();
+
 // Side Menu
 // Slider for the grids
 // Color Mode - Polychromatic

@@ -35,7 +35,7 @@ header {
 #grid-item {
   max-width: 100rem;
   max-height: 100rem;
-  border: 1px solid #33333341;
+  border: 1px solid #f00bdd41;
   text-align: center;
 }
 .menu-bar {
@@ -54,7 +54,7 @@ header {
 h4,
 h3 {
   text-align: center;
-  color: rgba(144, 226, 11, 0.856);
+  color: rgba(255, 252, 252, 0.767);
 }
 button {
   width: 200px;
