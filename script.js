@@ -249,7 +249,7 @@ const softBlack = function () {
         item.addEventListener('mousemove', function (event) {
           if (event.buttons === 1) {
             event.preventDefault();
-            item.style.opacity = parseFloat(item.style.opacity) + 0.001;
+            item.style.opacity = parseFloat(item.style.opacity) + 0.005;
           }
         });
       }
